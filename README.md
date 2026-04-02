@@ -1,4 +1,4 @@
-# Praktikum 3 Rekayasa Sistem Informasi (RSI) - Desain Database dan ERD
+# Praktikum Rekayasa Sistem Informasi (RSI)
 
 Repositori ini berisi *source code* untuk implementasi basis data relasional pada proyek Sistem Informasi Acara (acara-rsi).
 
