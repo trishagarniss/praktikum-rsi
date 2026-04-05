@@ -1,0 +1,9 @@
+# Sembunyikan environment variables
+.env
+
+# Sembunyikan cache python
+__pycache__/
+*.pyc
+
+# Sembunyikan virtual environment
+.venv/
