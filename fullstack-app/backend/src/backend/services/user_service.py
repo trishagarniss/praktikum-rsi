@@ -31,7 +31,6 @@ def edit_user(db: Session, user_id: int, data_user: UserUpdate):
 # 5. DELETE
 def hapus_user(db: Session, user_id: int):
     success = ur.delete_user(db, user_id)
-    # Karena di repo kita bikin return True/False, ngeceknya gampang
     if not success:
         raise HTTPException(status_code=404, detail=f"User dengan id {user_id} tidak ditemukan")
     return {"message": f"User dengan id {user_id} berhasil dihapus"}
