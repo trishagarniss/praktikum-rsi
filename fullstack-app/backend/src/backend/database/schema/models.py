@@ -19,8 +19,8 @@ class User(SQLModel, table=True):
     first_name: Optional[str] = Field(default=None, max_length=255)
     last_name: Optional[str] = Field(default=None, max_length=255)
     whatsapp: Optional[str] = Field(default=None, max_length=30)
-    created_at: Optional[datetime] = None
-    updated_at: Optional[datetime] = None
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
 
     accounts: list["Account"] = Relationship(back_populates="user")
     registrations: list["Registration"] = Relationship(back_populates="user")

@@ -1,6 +1,6 @@
 from sqlmodel import Session, select
 from src.backend.database.schema.models import Role
-from src.backend.dto.role_dto import RoleCreate, RoleResponse
+from src.backend.dto.role_dto import RoleCreate
 
 # 1. CREATE (Buat Role Baru)
 def create_role(db: Session, role_create: RoleCreate):
@@ -19,10 +19,10 @@ def get_role_by_id(db: Session, role_id: int):
     return db.get(Role, role_id)
 
 # 4. UPDATE (Ubah Data Role)
-def update_role(db:Session, role_id: int, role_data: RoleCreate):
+def update_role(db: Session, role_id: int, role_data: RoleCreate):
     db_role = db.get(Role, role_id)
     if db_role:
-        db.role_name = role_data.name
+        db_role.name = role_data.name # Ubah ini
         db.add(db_role)
         db.commit()
         db.refresh(db_role)
