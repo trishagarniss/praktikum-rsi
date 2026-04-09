@@ -12,8 +12,7 @@ def read_root():
 
 app.include_router(role_route.router)
 
-# Tambahkan ini di paling bawah
 if __name__ == "__main__":
     import uvicorn
-    # Pakai "app:app" karena nama file kamu app.py
+    # Pakai "app:app" karena nama file app.py
     uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
