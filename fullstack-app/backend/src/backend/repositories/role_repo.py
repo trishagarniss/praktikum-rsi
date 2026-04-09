@@ -1,6 +1,6 @@
 from sqlmodel import Session, select
 from src.backend.database.schema.models import Role
-from src.backend.dto.role_dto import RoleCreate, RoleResponse
+from src.backend.dto.role_dto import RoleCreate
 
 # 1. CREATE (Buat Role Baru)
 def create_role(db: Session, role_create: RoleCreate):
