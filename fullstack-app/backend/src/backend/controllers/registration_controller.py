@@ -12,7 +12,7 @@ def get_all_registrations_controller(db: Session):
 
 # 3. READ BY ID
 def get_registration_by_id_controller(registration_id: int, db: Session):
-    return registration_service.get_registration_by_id(db, registration_id)
+    return registration_service.get_registration(db, registration_id)
 
 # 4. UPDATE
 def update_registration_controller(registration_id: int, registration: RegistrationCreate, db: Session):
