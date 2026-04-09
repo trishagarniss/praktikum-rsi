@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException
 from pydantic import BaseModel
 from datetime import datetime
-from typing import Optional, List
+from typing import Optional, List, Union
 from sqlmodel import SQLModel, Field, Session, select
 from database.connection import engine, get_session
 
@@ -60,7 +60,6 @@ def tambah_user(data_user: UserInput, session: Session = Depends(get_session)):
 
 @app.get("/tampilkan_user", response_model=Union[List[User], User])
 def tampilkan_user(id: Optional[int] = None, session: Session = Depends(get_session)):
-    # Jika ID tidak diisi (None), tampilkan SEMUA user
     if id is None:
         users = session.exec(select(User)).all()
         return users
