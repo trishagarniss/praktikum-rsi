@@ -11,3 +11,8 @@ def read_root():
     return {"message": "Server Backend Sedang Berjalan Cuyy!"}
 
 app.include_router(role_route.router)
+
+if __name__ == "__main__":
+    import uvicorn
+    # Pakai "app:app" karena nama file app.py
+    uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
