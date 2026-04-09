@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from pydantic import BaseModel
 from datetime import datetime
 from typing import Optional, List
@@ -41,7 +41,6 @@ def read_root():
 def tambah_user(data_user: UserInput, session: Session = Depends(get_session)):
     waktu_sekarang = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
-    # Tidak perlu id_iterator lagi karena Postgres otomatis mengisi 'id'
     new_user = User(
         first_name=data_user.first_name,
         last_name=data_user.last_name,
@@ -59,10 +58,17 @@ def tambah_user(data_user: UserInput, session: Session = Depends(get_session)):
         "data": new_user
     }
 
-@app.get("/tampilkan_user", response_model=List[User])
-def tampilkan_user(session: Session = Depends(get_session)):
-    users = session.exec(select(User)).all()
-    return users
+@app.get("/tampilkan_user", response_model=Union[List[User], User])
+def tampilkan_user(id: Optional[int] = None, session: Session = Depends(get_session)):
+    # Jika ID tidak diisi (None), tampilkan SEMUA user
+    if id is None:
+        users = session.exec(select(User)).all()
+        return users
+    user = session.get(User, id)
+    if not user:
+        raise HTTPException(status_code=404, detail=f"User dengan id {id} tidak ditemukan")
+        
+    return user
 
 @app.put("/edit_user")
 def edit_user(data_user: UserUpdate, session: Session = Depends(get_session)):
