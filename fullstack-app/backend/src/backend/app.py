@@ -1,33 +1,14 @@
 from fastapi import FastAPI, Depends, HTTPException
-from pydantic import BaseModel
 from datetime import datetime
 from typing import Optional, List, Union
-from sqlmodel import SQLModel, Field, Session, select
-from database.connection import engine, get_session
+from sqlmodel import SQLModel, Session, select
+from .database.connection import engine, get_session
+from .dto.user_dto import User, UserInput, UserUpdate
 
 app = FastAPI(
     title="API Praktikum RSI Kelompok 2",
     description="Dokumentasi API untuk tugas CRUD"
 )
-
-class User(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    first_name: str
-    last_name: str
-    whatsapp: str
-    created_at: str
-    updated_at: str
-
-class UserInput(BaseModel):
-    first_name: str
-    last_name: str
-    whatsapp: str
-    
-class UserUpdate(BaseModel):
-    id: int
-    first_name: str
-    last_name: str
-    whatsapp: str
 
 @app.on_event("startup")
 def on_startup():
